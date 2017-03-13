@@ -59,6 +59,16 @@ export class Products {
       );
   }
 
+  showKeyValuePair( attributes: string ) {
+    let json = JSON.parse(attributes);
+    let str = '';
+    console.log(Object.keys(json));
+    Object.keys(json).forEach(element => {
+      str += '<tr><td><strong>' + element + '</strong></td><td>' + json[element] + '</td></tr>';
+    });
+    return '<table class="table is-bordered is-narrow">' + str + '</table>';
+  }
+
 }
 
 interface Product {
@@ -67,5 +77,5 @@ interface Product {
     price: number;
     product_category: string;
     product_sub_category: string;
-    attributes: string;
+    attributes: JSON;
 }

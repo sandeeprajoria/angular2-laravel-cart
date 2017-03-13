@@ -1,3 +1,16 @@
 .products{
     margin-top : 20px;
 }
+.attributes{
+    font-size: 12px;
+    width: 20%;
+}
+li{  
+    margin-top: 20px;
+}
+.columns{
+    margin-left: 0px !important;
+}
+#quantity{
+    width: 100px;
+}

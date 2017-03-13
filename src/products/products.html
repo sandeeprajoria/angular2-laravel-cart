@@ -25,8 +25,8 @@
   <div class="products">
     <ul>
       <li *ngFor="let item of products; let i = index;">
-        <div class="card">
-          <div class="card-content">
+        <div class="card columns">
+          <div class="column  is-two-thirds ">
             <div class="media">
               <div class="media-content">
                 <p class="title is-4">{{item.product_name}}</p>
@@ -34,20 +34,19 @@
               </div>
             </div>
             <div class="content">
-              {{ item.attributes}}
-              <br>
-              <strong>{{item.price}} Rs.</strong>
+              <div class="attributes" [innerHTML]="showKeyValuePair(item.attributes)"></div>
+              Price - <strong>{{item.price}} Rs.</strong>
             </div>
           </div>
-          <footer class="card-footer">
+          <div class="column is-one-third ">
             <form role="form" (submit)="addToCart($event, quantity.value, productId.value)">
               <p class="control has-addons">
                 <input type="hidden" id="productId" [value] = "item.id" #productId>
-                <input class="input" type="text" placeholder="Quantity" id="quantity" #quantity>
+                <input class="input" type="text" maxlength="5" placeholder="Quantity" id="quantity" #quantity>
                 <button type="submit" class="button is-info">Add to cart</button>
               </p>
             </form>
-          </footer>
+          </div>
         </div>
       </li>
     </ul>
