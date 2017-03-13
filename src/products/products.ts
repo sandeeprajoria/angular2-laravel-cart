@@ -32,7 +32,7 @@ export class Products {
   }
 
   getProducts() {
-    this.http.get(env.apiUrl + 'api/product/all', { headers: contentHeaders })
+    this.authHttp.get(env.apiUrl + 'api/product/all')
       .subscribe(
       response => {
         this.products = response.json().products;
@@ -48,15 +48,14 @@ export class Products {
   addToCart(event, quantity, id) {
     event.preventDefault();
     let body = JSON.stringify({ 'product_id': id, 'quantity': quantity});
-    this.http.post(env.apiUrl + 'api/cart/add', body, { headers: contentHeaders })
+    this.authHttp.post(env.apiUrl + 'api/cart/add', body, { headers: contentHeaders })
       .subscribe(
-        response => {
-          alert('Successfully Added');
-        },
+        resp => console.log(resp),
         error => {
-          alert(error.text());
           console.log(error.text());
-        }
+          alert((JSON.parse(error.text())).message);
+        },
+        () => alert('Successfully Added')
       );
   }
 

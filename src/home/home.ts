@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
-import { contentHeaders } from '../common/headers';
 
 const styles = require('./home.css');
 const template = require('./home.html');
@@ -32,7 +31,7 @@ export class Home {
   }
 
   getUserDetails() {
-    this.http.get(env.apiUrl + 'api/user', { headers: contentHeaders })
+    this.authHttp.get(env.apiUrl + 'api/user')
       .subscribe(
       response => {
         this.name = response.json().name;

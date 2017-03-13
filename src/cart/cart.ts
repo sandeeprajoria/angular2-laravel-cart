@@ -33,7 +33,7 @@ export class Cart {
   }
 
   getCart() {
-    this.http.get(env.apiUrl + 'api/cart', { headers: contentHeaders })
+    this.authHttp.get(env.apiUrl + 'api/cart', )
       .subscribe(
       response => {
           this.total = response.json().total;
@@ -48,7 +48,7 @@ export class Cart {
   }
 
   emptyCart() {
-    this.http.get(env.apiUrl + 'api/cart/empty', { headers: contentHeaders })
+    this.authHttp.get(env.apiUrl + 'api/cart/empty')
       .subscribe(
       response => {
           this.total = response.json().total;
@@ -65,8 +65,7 @@ export class Cart {
 
   removeItems(quantity, id) {
     let body = JSON.stringify({ 'product_id': id, 'quantity': quantity});
-    this.http.post(env.apiUrl + 'api/cart/remove', body,
-    { headers: contentHeaders })
+    this.authHttp.post(env.apiUrl + 'api/cart/remove', body, { headers: contentHeaders })
       .subscribe(
         response => {
           alert('Removed ' + quantity + ' item/s');
