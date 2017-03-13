@@ -1,7 +1,7 @@
 {
-  "name": "landmark-shopping-cart",
+  "name": "laravel-ng2-shopping-cart",
   "version": "0.0.1",
-  "description": "Landmark shopping cart project",
+  "description": "Laravel Angular 2 shopping cart project",
   "main": "",
   "scripts": {
     "server": "cd backend && npm i && node server.js",
@@ -10,13 +10,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "contributors": [
-    "Sandeep Rajoria <sandeep.rajoria@yahoo.co.in>"
+    "Sandeep Rajoria <sandeep.rajoria@live.com>"
   ],
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/sandeeprajoria/angular2-laravel-cart/issues"
   },
-  "homepage": "",
+  "homepage": "https://github.com/sandeeprajoria/angular2-laravel-cart",
   "dependencies": {
     "@angular/common": "2.0.1",
     "@angular/compiler": "2.0.1",
