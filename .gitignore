@@ -43,3 +43,4 @@ build/
 
 #ENV file
 /env.json
+/nbproject
