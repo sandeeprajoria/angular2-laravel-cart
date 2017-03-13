@@ -40,3 +40,6 @@ public/__build__/**
 
 
 build/
+
+#ENV file
+/env.json
