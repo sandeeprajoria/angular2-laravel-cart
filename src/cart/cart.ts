@@ -6,6 +6,7 @@ import { contentHeaders } from '../common/headers';
 
 const styles = require('./cart.css');
 const template = require('./cart.html');
+const env = require('../../env.json');
 
 @Component({
   selector: 'products',
@@ -32,12 +33,12 @@ export class Cart {
   }
 
   getCart() {
-    this.http.get('http://landmark.localhost.com/api/cart', { headers: contentHeaders })
+    this.http.get(env.apiUrl + 'api/cart', { headers: contentHeaders })
       .subscribe(
       response => {
           this.total = response.json().total;
           this.cartItems = response.json().cart_items;
-        console.log(response.json().cart_items);
+          if (env.debug) console.log(response.json().cart_items);
       },
       error => {
         alert(error.text());
@@ -47,13 +48,13 @@ export class Cart {
   }
 
   emptyCart() {
-    this.http.get('http://landmark.localhost.com/api/cart/empty', { headers: contentHeaders })
+    this.http.get(env.apiUrl + 'api/cart/empty', { headers: contentHeaders })
       .subscribe(
       response => {
           this.total = response.json().total;
           this.cartItems = response.json().cart_items;
           alert('Cart emptied');
-          console.log(response.json().cart_items);
+          if (env.debug) console.log(response.json().cart_items);
       },
       error => {
         alert(error.text());
@@ -64,7 +65,7 @@ export class Cart {
 
   removeItems(quantity, id) {
     let body = JSON.stringify({ 'product_id': id, 'quantity': quantity});
-    this.http.post('http://landmark.localhost.com/api/cart/remove', body,
+    this.http.post(env.apiUrl + 'api/cart/remove', body,
     { headers: contentHeaders })
       .subscribe(
         response => {

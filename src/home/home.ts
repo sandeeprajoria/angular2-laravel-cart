@@ -6,6 +6,7 @@ import { contentHeaders } from '../common/headers';
 
 const styles = require('./home.css');
 const template = require('./home.html');
+const env = require('../../env.json');
 
 @Component({
   selector: 'home',
@@ -31,7 +32,7 @@ export class Home {
   }
 
   getUserDetails() {
-    this.http.get('http://landmark.localhost.com/api/user', { headers: contentHeaders })
+    this.http.get(env.apiUrl + 'api/user', { headers: contentHeaders })
       .subscribe(
       response => {
         this.name = response.json().name;

@@ -5,6 +5,7 @@ import { contentHeaders } from '../common/headers';
 
 const styles   = require('./register.css');
 const template = require('./register.html');
+const env = require('../../env.json');
 
 @Component({
   selector: 'register',
@@ -18,7 +19,7 @@ export class Register {
   register(event, name, password, email, gender) {
     event.preventDefault();
     let body = JSON.stringify({ name, password, email, gender});
-    this.http.post('http://landmark.localhost.com/api/register', body, { headers: contentHeaders })
+    this.http.post(env.apiUrl + 'api/register', body, { headers: contentHeaders })
       .subscribe(
         response => {
           alert('Registered');

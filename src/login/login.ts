@@ -5,6 +5,7 @@ import { contentHeaders } from '../common/headers';
 
 const styles = require('./login.css');
 const template = require('./login.html');
+const env = require('../../env.json');
 
 @Component({
   selector: 'login',
@@ -26,7 +27,7 @@ export class Login {
         'client_secret': '54NYub6GuHLhpjxx57CEQaaMLGOQ38hFED1TyEXG',
         'scope': '*'
       });
-    this.http.post('http://landmark.localhost.com/oauth/token', body, { headers: contentHeaders })
+    this.http.post(env.apiUrl + 'oauth/token', body, { headers: contentHeaders })
       .subscribe(
       response => {
         localStorage.setItem('id_token', response.json().access_token);

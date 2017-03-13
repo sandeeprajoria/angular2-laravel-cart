@@ -6,6 +6,7 @@ import { contentHeaders } from '../common/headers';
 
 const styles = require('./products.css');
 const template = require('./products.html');
+const env = require('../../env.json');
 
 @Component({
   selector: 'products',
@@ -31,11 +32,11 @@ export class Products {
   }
 
   getProducts() {
-    this.http.get('http://landmark.localhost.com/api/product/all', { headers: contentHeaders })
+    this.http.get(env.apiUrl + 'api/product/all', { headers: contentHeaders })
       .subscribe(
       response => {
         this.products = response.json().products;
-        console.log(this.products);
+        if (env.debug) console.log(this.products);
       },
       error => {
         alert(error.text());
@@ -47,11 +48,10 @@ export class Products {
   addToCart(event, quantity, id) {
     event.preventDefault();
     let body = JSON.stringify({ 'product_id': id, 'quantity': quantity});
-    this.http.post('http://landmark.localhost.com/api/cart/add', body, { headers: contentHeaders })
+    this.http.post(env.apiUrl + 'api/cart/add', body, { headers: contentHeaders })
       .subscribe(
         response => {
           alert('Successfully Added');
-          //this.router.navigate(['login']);
         },
         error => {
           alert(error.text());
