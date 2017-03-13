@@ -23,8 +23,8 @@ export class Login {
         'username': username,
         'password': password,
         'grant_type': 'password',
-        'client_id': 2,
-        'client_secret': '54NYub6GuHLhpjxx57CEQaaMLGOQ38hFED1TyEXG',
+        'client_id': env.clientId,
+        'client_secret': env.clientSecret,
         'scope': '*'
       });
     this.http.post(env.apiUrl + 'oauth/token', body, { headers: contentHeaders })
