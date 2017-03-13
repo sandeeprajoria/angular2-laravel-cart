@@ -1,0 +1,55 @@
+<div>
+  <nav class="nav has-shadow">
+    <div class="container">
+      <div class="nav-left">
+        <a class="nav-item">
+          <img src="https://i1.lmsin.net/website_images/logos/landmarshops-grey@1x.png" alt="Landmark logo">
+        </a>
+        <a class="nav-item is-tab is-hidden-mobile" [routerLink]="['/home']">HOME</a>
+        <a class="nav-item is-tab is-hidden-mobile is-active">PRODUCTS</a>
+        <a class="nav-item is-tab is-hidden-mobile" [routerLink]="['/cart']">CART</a>
+      </div>
+      <span class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+      <div class="nav-right nav-menu">
+        <a class="nav-item is-tab is-hidden-tablet" [routerLink]="['/home']">HOME</a>
+        <a class="nav-item is-tab is-hidden-tablet is-active">PRODUCTS</a>
+        <a class="nav-item is-tab is-hidden-tablet" [routerLink]="['/cart']">CART</a>
+        <a class="nav-item is-tab" role="button" (click)="logout()">LOGOUT</a>
+      </div>
+    </div>
+  </nav>
+  <div class="products">
+    <ul>
+      <li *ngFor="let item of products; let i = index;">
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">{{item.product_name}}</p>
+                <p class="subtitle is-6">{{item.product_category}} > {{item.product_sub_category}}</p>
+              </div>
+            </div>
+            <div class="content">
+              {{ item.attributes}}
+              <br>
+              <strong>{{item.price}} Rs.</strong>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <form role="form" (submit)="addToCart($event, quantity.value, productId.value)">
+              <p class="control has-addons">
+                <input type="hidden" id="productId" [value] = "item.id" #productId>
+                <input class="input" type="text" placeholder="Quantity" id="quantity" #quantity>
+                <button type="submit" class="button is-info">Add to cart</button>
+              </p>
+            </form>
+          </footer>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
