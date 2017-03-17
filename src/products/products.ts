@@ -19,6 +19,7 @@ export class Products {
   response: string;
   api: string;
   products: Array<Product> = new Array<Product>();
+  productCount: number;
 
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
     this.jwt = localStorage.getItem('id_token');
@@ -39,7 +40,7 @@ export class Products {
         if (env.debug) console.log(this.products);
       },
       error => {
-        alert(error.text());
+        alert((JSON.parse(error.text())).message);
         console.log(error.text());
       }
       );
@@ -62,11 +63,28 @@ export class Products {
   showKeyValuePair( attributes: string ) {
     let json = JSON.parse(attributes);
     let str = '';
-    console.log(Object.keys(json));
     Object.keys(json).forEach(element => {
       str += '<tr><td><strong>' + element + '</strong></td><td>' + json[element] + '</td></tr>';
     });
     return '<table class="table is-bordered is-narrow">' + str + '</table>';
+  }
+
+  searchProducts( event, keywords: string ) {
+    let body = JSON.stringify({ 'query_string': keywords});
+    this.authHttp.post(env.apiUrl + 'api/product/search', body, { headers: contentHeaders })
+      .subscribe(
+        response => {
+          this.productCount = response.json().total;
+          if ( response.json().total > 0) {
+            this.products = response.json().products;
+          }
+        },
+        error => {
+          console.log(error.text());
+          alert((JSON.parse(error.text())).message);
+        },
+        //() => alert('Successfully Added')
+      );
   }
 
 }

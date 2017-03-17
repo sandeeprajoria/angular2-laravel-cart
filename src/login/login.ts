@@ -34,7 +34,7 @@ export class Login {
         this.router.navigate(['home']);
       },
       error => {
-        alert(error.text());
+        alert((JSON.parse(error.text())).message);
         console.log(error.text());
       }
       );

@@ -41,7 +41,7 @@ export class Cart {
           if (env.debug) console.log(response.json().cart_items);
       },
       error => {
-        alert(error.text());
+        alert((JSON.parse(error.text())).message);
         console.log(error.text());
       }
       );
@@ -57,7 +57,7 @@ export class Cart {
           if (env.debug) console.log(response.json().cart_items);
       },
       error => {
-        alert(error.text());
+        alert((JSON.parse(error.text())).message);
         console.log(error.text());
       }
       );
@@ -73,7 +73,7 @@ export class Cart {
           this.cartItems = response.json().cart_items;
         },
         error => {
-          alert(error.text());
+          alert((JSON.parse(error.text())).message);
           console.log(error.text());
         }
       );

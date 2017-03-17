@@ -37,7 +37,7 @@ export class Home {
         this.name = response.json().name;
       },
       error => {
-        alert(error.text());
+        alert((JSON.parse(error.text())).message);
         console.log(error.text());
       }
       );

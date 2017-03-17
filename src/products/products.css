@@ -14,3 +14,12 @@ li{
 #quantity{
     width: 100px;
 }
+
+.search{
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
+#search-button{
+    display: none
+}

@@ -22,6 +22,18 @@
       </div>
     </div>
   </nav>
+
+  <div class="search has-addons has-addons-centered">
+    <form role="form" (submit)="searchProducts($event, search.value)">
+      <input class="input is-success" type="text" placeholder="Type text and hit Enter to search"  id="search" #search>
+      <button class="button" id="search-button">
+        Search
+      </button>
+    </form>
+    <p class="help is-danger" *ngIf="productCount == 0" >Nothing matching found.</p>
+    <p class="help is-success" *ngIf="productCount > 1" >{{productCount}} results found!!</p>
+    <p class="help is-success" *ngIf="productCount == 1" >{{productCount}} result found!!</p>
+  </div>
   <div class="products">
     <ul>
       <li *ngFor="let item of products; let i = index;">
