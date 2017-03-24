@@ -12,6 +12,7 @@ import { Login } from './login';
 import { Register } from './register';
 import { Products } from './products';
 import { Cart } from './cart';
+import { Spinner } from './spinner';
 import { App } from './app';
 
 import { routes } from './app.routes';
@@ -19,7 +20,7 @@ import { routes } from './app.routes';
 @NgModule({
   bootstrap: [App],
   declarations: [
-    Home, Login, Register, Products, Cart, App
+    Home, Login, Register, Products, Cart, App, Spinner
   ],
   imports: [
     HttpModule, BrowserModule, FormsModule,

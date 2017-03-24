@@ -3,6 +3,7 @@ import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { AuthHttp } from 'angular2-jwt';
 import { contentHeaders } from '../common/headers';
+import LoadingSpinner from '../common/loadingSpinner';
 
 const styles = require('./products.css');
 const template = require('./products.html');
@@ -13,7 +14,7 @@ const env = require('../../env.json');
   template: template,
   styles: [ styles ]
 })
-export class Products {
+export class Products extends LoadingSpinner {
   jwt: string;
   decodedJwt: string;
   response: string;
@@ -22,6 +23,7 @@ export class Products {
   productCount: number;
 
   constructor(public router: Router, public http: Http, public authHttp: AuthHttp) {
+    super();
     this.jwt = localStorage.getItem('id_token');
     this.decodedJwt = this.jwt && window.jwt_decode(this.jwt);
     this.getProducts();
@@ -33,13 +35,16 @@ export class Products {
   }
 
   getProducts() {
+    this.showSpinner();
     this.authHttp.get(env.apiUrl + 'api/product/all')
       .subscribe(
       response => {
+        this.hideSpinner();
         this.products = response.json().products;
         if (env.debug) console.log(this.products);
       },
       error => {
+        this.hideSpinner();
         alert((JSON.parse(error.text())).message);
         console.log(error.text());
       }
@@ -47,16 +52,21 @@ export class Products {
   }
 
   addToCart(event, quantity, id) {
+    this.showSpinner();
     event.preventDefault();
     let body = JSON.stringify({ 'product_id': id, 'quantity': quantity});
     this.authHttp.post(env.apiUrl + 'api/cart/add', body, { headers: contentHeaders })
       .subscribe(
-        resp => console.log(resp),
+        resp => {
+          this.hideSpinner();
+          console.log(resp);
+          alert('Successfully Added');
+        },
         error => {
+          this.hideSpinner();
           console.log(error.text());
           alert((JSON.parse(error.text())).message);
         },
-        () => alert('Successfully Added')
       );
   }
 
@@ -70,16 +80,19 @@ export class Products {
   }
 
   searchProducts( event, keywords: string ) {
+    this.showSpinner();
     let body = JSON.stringify({ 'query_string': keywords});
     this.authHttp.post(env.apiUrl + 'api/product/search', body, { headers: contentHeaders })
       .subscribe(
         response => {
+          this.hideSpinner();
           this.productCount = response.json().total;
           if ( response.json().total > 0) {
             this.products = response.json().products;
           }
         },
         error => {
+          this.hideSpinner();
           console.log(error.text());
           alert((JSON.parse(error.text())).message);
         },
